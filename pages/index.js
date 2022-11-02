@@ -4,6 +4,7 @@ import { size } from "lodash";
 import BasicLayout from "../layouts/BasicLayout";
 import { getLastsGamesApi } from "../api/game";
 import ListGames from "../components/ListGames/ListGames";
+import PushNotification from "../components/PushNotification/PushNotification";
 import Seo from "../components/Seo";
 
 export default function Home() {
@@ -18,15 +19,17 @@ export default function Home() {
   }, []);
 
   return (
-    <BasicLayout className="home">
-      <Seo />
-      {!games && <Loader active>Cargando juegos</Loader>}
-      {games && size === 0 && (
-        <div>
-          <h3>No hay juegos</h3>
-        </div>
-      )}
-      {size(games) > 0 && <ListGames games={games} />}
-    </BasicLayout>
+    <PushNotification>
+      <BasicLayout className="home">
+        <Seo />
+        {!games && <Loader active>Cargando juegos</Loader>}
+        {games && size === 0 && (
+          <div>
+            <h3>No hay juegos</h3>
+          </div>
+        )}
+        {size(games) > 0 && <ListGames games={games} />}
+      </BasicLayout>
+    </PushNotification>
   );
 }
